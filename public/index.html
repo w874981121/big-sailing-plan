@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=750,user-scalable=no">
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <script>
+    //兼容同比
+    (function (doc, win) {
+      var docEl = doc.documentElement, resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          var clientWidth = docEl.clientWidth;
+          if (!clientWidth) return;
+          if (clientWidth >= 900) {
+            docEl.style.fontSize = '100px';
+          } else {
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+          }
+        };
+      if (!doc.addEventListener) return;
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+
+  </script>
+
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <script async src="//unpkg.zhimg.com/za-js-sdk@latest/dist/zap.js" onload="zap.trackPageShow({id:9983})"></script>
+  <script async type="text/javascript">
+    (function (win) {
+      var getScript = function (url, callback) {
+        var js = document.createElement('script');
+        js.setAttribute('type', 'text/javascript');
+        js.setAttribute('src', url);
+        document.getElementsByTagName('head')[0].appendChild(js);
+        if (callback && typeof callback == 'function') {
+          if (document.all) { //IE
+            js.onreadystatechange = function () {
+              if (js.readyState == 'loaded' || js.readyState == 'complete') {
+                callback();
+              }
+            }
+          } else {
+            js.onload = function () {
+              callback();
+            }
+          }
+        }
+      }
+
+      getScript("//unpkg.zhihu.com/zhihu-hybrid@2.3.1", function () {
+        window.zhihuHybrid.dispatch('browser/enableSwipeRefresh').then(res => alert(JSON.stringify(res) + "下拉刷新"))
+        
+        window.zhihuHybrid.dispatch('browser/hideNavigationBar').then(res => alert(JSON.stringify(res) + "隐藏"));
+
+        window.zhihuHybrid.dispatch('share/setShareInfo', {
+          wechatTimeline: {
+            link: 'https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent-preview.zhihu.com%2Fnavigation%2Findex.html',
+            title: '大航海计划',
+            imgUrl: 'https://pic3.zhimg.com/80/v2-e8f26c239ca06d3fbac97631a302ba72_1440w.png',
+          },
+          wechatMessage: {
+            link: 'https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent-preview.zhihu.com%2Fnavigation%2Findex.html',
+            title: '大航海计划',
+            imgUrl: 'https://pic3.zhimg.com/80/v2-e8f26c239ca06d3fbac97631a302ba72_1440w.png',
+            desc: '123',
+          },
+          QQ: {
+            url: 'https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent-preview.zhihu.com%2Fnavigation%2Findex.html',
+            title: '大航海计划',
+            content: '123123',
+            imageURL: 'https://pic3.zhimg.com/80/v2-e8f26c239ca06d3fbac97631a302ba72_1440w.png',
+          },
+          PosterShare: {
+            imageURL: ""
+          },
+        }).then(res => alert(JSON.stringify(res) + "分享"))
+      })
+
+    })(window);
+
+
+  </script>
+</body>
+
+</html>
